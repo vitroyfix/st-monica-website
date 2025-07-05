@@ -1,0 +1,17 @@
+[
+  {
+    "day": "Sunday",
+    "times": ["8:00 AM", "10:30 AM"],
+    "type": ""
+  },
+  {
+    "day": "Monday - Friday",
+    "times": ["6:30 AM"],
+    "type": "Daily Mass"
+  },
+  {
+    "day": "Saturday",
+    "times": ["5:00 PM"],
+    "type": "Vigil Mass"
+  }
+]

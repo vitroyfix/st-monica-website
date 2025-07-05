@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>St. Monica Catholic Church | Home</title>
+  <link rel="stylesheet" href="home-style.css">
+</head>
+<body>
+
+  <header class="top-header">
+    <img src="/images/st_monica_logo-removebg-preview.png" alt="St. Monica Logo" class="site-logo">
+    <nav class="nav-links">
+      <a href="#" class="nav-item">Parish Bulletin</a>
+      <a href="#" class="nav-item">Upcoming Events</a>
+      <a href="#" class="nav-item">New Member Registration</a>
+      <a href="#" class="nav-item">Request a Prayer</a>
+      <a href="#" class="nav-item">Contact the Parish</a>
+    </nav>
+  </header>
+
+  <header id="main-header" class="site-header">
+    <h1 class="church-name">St. Monica Catholic Church</h1>
+    <p class="church-tagline">Rooted in Faith, Growing in Love</p>
+  </header>
+
+  <section id="hero-section" class="hero">
+    <h2 class="section-title">Welcome to Our Parish Family</h2>
+    <p class="section-description">We are a vibrant Catholic community walking together in faith, service, and love.</p>
+    <a href="#mass-times" class="btn btn-primary">View Mass Times</a>
+  </section>
+
+  <section id="carousel-section" class="section">
+    <h2 class="section-title">Latest News & Events</h2>
+    <div id="carousel-slider"></div>
+  </section>
+
+  <section id="schedule-section" class="section">
+    <h2 class="section-title">Mass Schedule</h2>
+    <div id="mass-schedule"></div>
+  </section>
+
+
+
+  <section id="pastor-message" class="section">
+    <h2 class="section-title">Message from Our Priest</h2>
+    <p class="message-content">
+      Peace be with you. As your pastor, I warmly invite you to explore our parish and join us in celebrating the Eucharist.
+      We are glad you're here. — <strong>Fr. John Mwangi</strong>
+    </p>
+  </section>
+
+  <section id="video-gallery" class="section video-gallery">
+
+    <!-- Featured Video -->
+    <div class="featured-video">
+      <h2 class="section-title">Watch Our Latest Livestream</h2>
+      <p class="section-description">Join us live or catch up on the latest Mass or event.</p>
+      <button id="live-button" class="live-part">Join Livestream</button>
+
+      <div class="video-wrapper">
+        <iframe width="100%" height="400" 
+          src="https://www.youtube.com/embed/YOUR_LATEST_VIDEO_ID?autoplay=1" 
+          title="Latest Livestream" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Video Playlist Strip -->
+    <div class="video-strip-container">
+      <h3 class="section-subtitle">Recent Uploads</h3>
+
+      <div class="video-strip">
+        <!-- Video 1 -->
+        <div class="video-card">
+          <iframe width="300" height="170" 
+            src="https://www.youtube.com/embed/VIDEO_ID_1" 
+            title="Mass 1" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <!-- Video 2 -->
+        <div class="video-card">
+          <iframe width="300" height="170" 
+            src="https://www.youtube.com/embed/VIDEO_ID_2" 
+            title="Mass 2" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <!-- Video 3 -->
+        <div class="video-card">
+          <iframe width="300" height="170" 
+            src="https://www.youtube.com/embed/VIDEO_ID_3" 
+            title="Homily" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <!-- Add more videos as needed -->
+      </div>
+    </div>
+
+    <p class="subscribe-link">
+      <a href="https://www.youtube.com/@YOUR_CHANNEL_NAME" target="_blank" class="link-item">
+        Subscribe to our YouTube channel →
+      </a>
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer id="main-footer" class="site-footer">
+    <p class="footer-title">St. Monica Catholic Church</p>
+    <p class="footer-address">123 Faith Road, Nairobi, Kenya</p>
+    <p class="footer-contact">Email: info@stmonica.org | Phone: +254 712 345678</p>
+    <p class="footer-copy">&copy; 2025 St. Monica Catholic Church. All rights reserved.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
