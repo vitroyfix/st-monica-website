@@ -1,4 +1,0 @@
-[[redirects]]
-  from = "/admin"
-  to = "/admin/cms.html"
-  status = 200

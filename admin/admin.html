@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <title>Admin Dashboard - St. Monica Catholic Church</title>
+  <link rel="stylesheet" href="admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    if (localStorage.getItem('isAdmin') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img src="/images/st_monica_logo-removebg-preview.png" alt="St. Monica Logo" class="sidebar-logo">
+        <div class="sidebar-title">
+          <h2>St. Monica</h2>
+          <p>Admin Panel</p>
+        </div>
+        <button class="mobile-sidebar-toggle" id="mobile-sidebar-toggle" onclick="toggleSidebar()">✕</button>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-section="dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9,22 9,12 15,12 15,22"/>
+          </svg>
+          Dashboard
+        </a>
+        
+        <a href="#" class="nav-item" data-section="mass-schedule">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Mass Schedule
+        </a>
+        
+        <a href="#" class="nav-item" data-section="news-events">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14,2 14,8 20,8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10,9 9,9 8,9"/>
+          </svg>
+          News & Events
+        </a>
+        
+        <a href="#" class="nav-item" data-section="video-gallery">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="23 7 16 12 23 17 23 7"/>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+          </svg>
+          Video Gallery
+        </a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <a href="#" class="logout-btn" onclick="logout()">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          Logout
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <button class="mobile-menu-trigger" id="mobile-menu-trigger" onclick="toggleSidebar()">☰</button>
+      
+      <div id="dashboard-section" class="content-section active">
+        <header class="content-header">
+          <h1>Dashboard Overview</h1>
+          <p>Welcome back! Here's what's happening at St. Monica.</p>
+        </header>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+          <div class="summary-card">
+            <div class="card-content">
+              <h3 id="mass-count">0</h3>
+              <p>Mass Times</p>
+            </div>
+            <div class="card-icon calendar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <div class="card-content">
+              <h3 id="news-count">0</h3>
+              <p>News Events</p>
+            </div>
+            <div class="card-icon document">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14,2 14,8 20,8"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <div class="card-content">
+              <h3 id="video-count">0</h3>
+              <p>Videos</p>
+            </div>
+            <div class="card-icon video">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="23 7 16 12 23 17 23 7"/>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <div class="card-content">
+              <h3>2.4K</h3>
+              <p>Monthly Views</p>
+            </div>
+            <div class="card-icon chart">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="activity-panel">
+          <div class="actions-card">
+            <h3>Quick Actions</h3>
+            <div class="actions-list">
+              <button class="action-btn" onclick="showSection('mass-schedule')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                Update Mass Times
+              </button>
+
+              <button class="action-btn" onclick="showSection('news-events')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14,2 14,8 20,8"/>
+                </svg>
+                Add News Event
+              </button>
+
+              <button class="action-btn" onclick="showSection('video-gallery')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="23 7 16 12 23 17 23 7"/>
+                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                </svg>
+                Upload Video
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mass Schedule Section -->
+      <div id="mass-schedule-section" class="content-section">
+        <header class="content-header">
+          <h1>Mass Schedule Management</h1>
+          <p>Manage your weekly mass times and special services.</p>
+        </header>
+        <div class="placeholder-content">
+          <p>Mass Schedule content will be implemented here.</p>
+        </div>
+      </div>
+
+      <!-- News & Events Section -->
+      <div id="news-events-section" class="content-section">
+        <header class="content-header">
+          <h1>News & Events</h1>
+          <p>Create and manage parish news and upcoming events.</p>
+        </header>
+        <div class="placeholder-content">
+          <p>News & Events content will be implemented here.</p>
+        </div>
+      </div>
+
+      <!-- Video Gallery Section -->
+      <div id="video-gallery-section" class="content-section">
+        <header class="content-header">
+          <h1>Video Gallery</h1>
+          <p>Upload and manage parish videos and livestreams.</p>
+          <button class="action-btn" onclick="showVideoUploadForm()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Upload Video
+          </button>
+        </header>
+
+        <!-- Video Upload Form (Hidden by default) -->
+        <div id="video-upload-form" class="video-upload-form" style="display: none;">
+          <div class="form-card">
+            <h3>Upload New Video</h3>
+            <form id="video-form">
+              <div class="form-group">
+                <label for="video-title">Video Title</label>
+                <input type="text" id="video-title" placeholder="Enter video title" required>
+              </div>
+              <div class="form-group">
+                <label for="video-url">Video URL</label>
+                <input type="url" id="video-url" placeholder="YouTube embed URL or MP4 link" required>
+              </div>
+              <div class="form-group">
+                <label for="video-description">Description (Optional)</label>
+                <textarea id="video-description" placeholder="Brief description of the video" rows="3"></textarea>
+              </div>
+              <div class="form-actions">
+                <button type="button" class="cancel-btn" onclick="hideVideoUploadForm()">Cancel</button>
+                <button type="submit" class="submit-btn">Upload Video</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Video Gallery Grid -->
+        <div id="video-gallery-grid" class="video-gallery-grid">
+          <!-- Videos will be dynamically loaded here -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="admin-manager.js"></script>
+</body>
+</html>

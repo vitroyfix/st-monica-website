@@ -1,27 +1,23 @@
 [
   {
-    "title": "Corpus Christi Procession",
-    "image": "images/event1.jpg",
-    "link": "#"
+    "videoId": "dQw4w9WgXcQ",
+    "title": "Sunday Mass - January 2025",
+    "uploadDate": "2025-01-15",
+    "uploadedBy": "Fr. John Mwangi",
+    "description": "Join us for our weekly Sunday Mass celebration"
   },
   {
-    "title": "Youth Fellowship Friday",
-    "image": "images/event2.jpg",
-    "link": "#"
+    "videoId": "9bZkp7q19f0",
+    "title": "Youth Fellowship - Faith & Community",
+    "uploadDate": "2025-01-08",
+    "uploadedBy": "Youth Ministry",
+    "description": "Our youth group gathering for fellowship and prayer"
   },
   {
-    "title": "Weekly Bible Study",
-    "image": "images/event3.jpg",
-    "link": "#"
-  },
-  {
-    "title": "New Members Welcome",
-    "image": "images/event4.jpg",
-    "link": "#"
-  },
-  {
-    "title": "Special Advent Services",
-    "image": "images/event5.jpg",
-    "link": "#"
+    "videoId": "kJQP7kiw5Fk",
+    "title": "Christmas Midnight Mass 2024",
+    "uploadDate": "2024-12-25",
+    "uploadedBy": "Parish Admin",
+    "description": "Celebrating the birth of our Lord Jesus Christ"
   }
 ]

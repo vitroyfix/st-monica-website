@@ -1,0 +1,568 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f5cc5e;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Registration Section */
+.registration-section {
+  background: rgba(255,255,255,0.95);
+  border-radius: 25px;
+  padding: 2.5rem;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(139,0,0,0.1);
+  max-width: 450px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(139,0,0,0.1);
+}
+
+.form-header {
+  margin-bottom: 2rem;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.logo {
+  height: 60px;
+  width: 60px;
+  object-fit: contain;
+}
+
+.header-text h1 {
+  color: #8B0000;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.quote {
+  color: #666;
+  font-size: 0.9rem;
+  font-style: italic;
+  margin: 0;
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border: 2px solid #e8e8e8;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #fafafa;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #8B0000;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(139,0,0,0.1);
+}
+
+.input-group input::placeholder {
+  color: #999;
+  font-weight: 400;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-group input {
+  transform: scale(1.2);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+  color: white;
+  border: none;
+  padding: 1.2rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 8px 20px rgba(139,0,0,0.3);
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(139,0,0,0.4);
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+.values-section {
+  display: flex;
+  justify-content: space-around;
+  margin: 1.5rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid #eee;
+}
+
+.value-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.value-icon {
+  font-size: 1.5rem;
+  color: #8B0000;
+}
+
+.footer-info {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  color: #666;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+/* Membership Card */
+.membership-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: slideIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hidden {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+
+.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-container {
+  perspective: 1000px;
+  margin-bottom: 2rem;
+}
+
+.card {
+  width: 700px;
+  height: 350px;
+  max-width: 90vw;
+  background: linear-gradient(145deg, #FDF5E6 0%, #F5F5DC 100%);
+  margin: 0 auto;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1);
+  padding: 1.5rem;
+  font-family: 'Playfair Display', serif;
+  border: 1px solid rgba(218,165,32,0.2);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 10% 20%, rgba(255,215,0,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+.card-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.back-btn, .print-btn, .download-btn {
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.back-btn {
+  background: linear-gradient(135deg, #F5F5DC 0%, #E6E6FA 100%);
+  color: #8B0000;
+  border: 1px solid rgba(139,0,0,0.2);
+}
+
+.print-btn {
+  background: linear-gradient(135deg, #8B0000 0%, #B8860B 100%);
+  color: white;
+}
+
+.download-btn {
+  background: linear-gradient(135deg, #ec7000 0%, #ff9500 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(236,112,0,0.3);
+}
+
+.back-btn:hover, .print-btn:hover, .download-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.download-btn:hover {
+  box-shadow: 0 8px 25px rgba(236,112,0,0.4);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card-logo {
+  height: 50px;
+  width: 50px;
+  object-fit: contain;
+}
+
+.church-info h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #8B0000;
+  margin-bottom: 0.3rem;
+}
+
+.church-info p {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+.reg-number {
+  font-size: 0.75rem;
+  color: #8B0000;
+  font-weight: 600;
+}
+
+.member-name {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #8B0000;
+  margin: 0.5rem 0;
+  letter-spacing: 1px;
+  font-family: 'Playfair Display', serif;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.bible-verse {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #5D4E37;
+  margin: 0.5rem 0;
+  padding: 0.8rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(245,245,220,0.6) 100%);
+  border-radius: 10px;
+  border: 1px solid rgba(218,165,32,0.3);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
+}
+
+.bible-verse span {
+  display: block;
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #8B0000;
+  font-style: normal;
+}
+
+.contact-details {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(245,245,220,0.5) 100%);
+  border-radius: 8px;
+  border: 1px solid rgba(218,165,32,0.2);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.vibrant-contact {
+  background: linear-gradient(135deg, rgba(236,112,0,0.1) 0%, rgba(255,149,0,0.15) 100%);
+  border: 2px solid rgba(236,112,0,0.3);
+  box-shadow: 0 5px 15px rgba(236,112,0,0.2);
+}
+
+.vibrant-contact:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(236,112,0,0.3);
+}
+
+.contact-icon-wrapper {
+  background: linear-gradient(135deg, #ec7000 0%, #ff9500 100%);
+  padding: 0.5rem;
+  border-radius: 50%;
+  box-shadow: 0 3px 10px rgba(236,112,0,0.3);
+}
+
+.contact-icon {
+  font-size: 1.1rem;
+  color: white;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-label {
+  font-size: 0.65rem;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-value {
+  font-size: 0.75rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.vibrant-email {
+  color: #ec7000;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(236,112,0,0.2);
+}
+
+.vibrant-phone {
+  color: #ff9500;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(255,149,0,0.2);
+}
+
+.card-footer {
+  text-align: center;
+  margin-top: auto;
+  padding-top: 0.8rem;
+  border-top: 2px solid rgba(218,165,32,0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.church-motto p {
+  font-style: italic;
+  font-size: 1rem;
+  color: #8B0000;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  font-family: 'Playfair Display', serif;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.address {
+  font-size: 0.8rem;
+  color: #666;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.qr-code {
+  width: 65px;
+  height: 65px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(218,165,32,0.3);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  position: relative;
+  z-index: 1;
+}
+
+.qr-code img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Card Actions */
+.card-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.print-btn, .new-btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.print-btn {
+  background: #7f1d1d;
+  color: white;
+}
+
+.new-btn {
+  background: #78350f;
+  color: white;
+}
+
+.print-btn:hover, .new-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+  
+  .registration-section,
+  .card-actions {
+    display: none;
+  }
+  
+  .membership-card {
+    display: block !important;
+    margin: 0;
+    max-width: none;
+  }
+  
+  .card {
+    box-shadow: none;
+    border: 2px solid #333;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .registration-section {
+    padding: 2rem 1.5rem;
+  }
+  
+  .card {
+    width: 350px;
+    height: 280px;
+  }
+  
+  .member-name {
+    font-size: 1.3rem;
+  }
+  
+  .bible-verse {
+    font-size: 0.75rem;
+  }
+  
+  .card-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .print-btn, .new-btn {
+    width: 200px;
+  }
+}

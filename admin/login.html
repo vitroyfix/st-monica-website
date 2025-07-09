@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <h1>Admin Login</h1>
+      <form id="login-form">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter admin email" required>
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter admin password" required>
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+        <div id="error-message" class="error"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorDiv = document.getElementById('error-message');
+      
+      if (email === 'admin@stmonica.org' && password === 'admin123') {
+        localStorage.setItem('isAdmin', 'true');
+        localStorage.setItem('adminUsername', 'Peter');
+        window.location.href = 'admin.html';
+      } else {
+        errorDiv.textContent = 'Invalid email or password';
+        errorDiv.style.display = 'block';
+      }
+    });
+  </script>
+  <script src="admin-access.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Member Registration - St. Monica Catholic Church</title>
+  <link rel="stylesheet" href="register.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Registration Form -->
+    <div id="registration-section" class="registration-section">
+      <div class="form-header">
+        <div class="header-top">
+          <img src="/images/st_monica_logo-removebg-preview.png" alt="St. Monica Logo" class="logo">
+          <div class="header-text">
+            <h1>St. Monica Catholic Church</h1>
+            <p class="quote">"Rooted in Faith, Growing in Love"</p>
+          </div>
+        </div>
+      </div>
+      
+      <form id="registration-form" class="registration-form">
+        <div class="input-group">
+          <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
+        </div>
+        
+        <div class="input-group">
+          <input type="email" id="email" name="email" placeholder="Email Address" required>
+        </div>
+        
+        <div class="input-group">
+          <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+        </div>
+        
+        <div class="input-group">
+          <input type="text" id="regNumber" name="regNumber" placeholder="Registration Number" required>
+        </div>
+        
+        <button type="submit" class="submit-btn">
+          <span class="btn-icon">✚</span>
+          Register & Generate Membership Card
+        </button>
+        
+        <div class="values-section">
+          <div class="value-item">
+            <span class="value-icon">✝</span>
+            <span>Faith</span>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">👥</span>
+            <span>Community</span>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">🤝</span>
+            <span>Service</span>
+          </div>
+        </div>
+      </form>
+      
+      <div class="footer-info">
+        <p>123 Faith Road, Nairobi, Kenya | +254 712 345678</p>
+        <p>info@stmonica.org</p>
+      </div>
+    </div>
+
+    <!-- Membership Card -->
+    <div id="membership-card" class="membership-card hidden">
+      <div class="card-nav">
+        <button onclick="registerAnother()" class="back-btn">← Back</button>
+        <button onclick="printCard()" class="print-btn">Print Card</button>
+        <button onclick="downloadCard()" class="download-btn">Download Card</button>
+      </div>
+      
+      <div class="card-container">
+        <div class="card">
+          <div class="card-header">
+            <div class="header-left">
+              <img src="/images/st_monica_logo-removebg-preview.png" alt="St. Monica Logo" class="card-logo">
+              <div class="church-info">
+                <h3>St. Monica Catholic Church</h3>
+                <p id="join-date">Member since </p>
+                <p id="reg-number" class="reg-number">Reg: </p>
+              </div>
+            </div>
+            <div class="qr-code" id="qr-code">
+              <!-- QR code will be generated here -->
+            </div>
+          </div>
+          
+          <div class="member-name" id="card-name">
+            <!-- Name will be inserted here -->
+          </div>
+          
+          <div class="bible-verse" id="bible-verse">
+            <!-- Bible verse will be inserted here -->
+          </div>
+          
+          <div class="contact-details">
+            <div class="contact-item vibrant-contact">
+              <div class="contact-icon-wrapper">
+                <i class="fas fa-envelope contact-icon"></i>
+              </div>
+              <div class="contact-info">
+                <span class="contact-label">Email</span>
+                <span id="member-email" class="contact-value vibrant-email"></span>
+              </div>
+            </div>
+            <div class="contact-item vibrant-contact">
+              <div class="contact-icon-wrapper">
+                <i class="fas fa-phone contact-icon"></i>
+              </div>
+              <div class="contact-info">
+                <span class="contact-label">Phone</span>
+                <span id="member-phone" class="contact-value vibrant-phone"></span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card-footer">
+            <div class="church-motto">
+              <p>"Rooted in Faith, Growing in Love"</p>
+              <p class="address">123 Faith Road, Nairobi, Kenya</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="register.js"></script>
+</body>
+</html>
