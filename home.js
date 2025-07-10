@@ -274,6 +274,216 @@ function showDefaultContent() {
   }
 }
 
+// Hamburger Menu Functions
+function toggleMobileMenu() {
+  const hamburger = document.getElementById('hamburgerBtn');
+  const overlay = document.getElementById('mobileNavOverlay');
+  const menu = document.getElementById('mobileNavMenu');
+  
+  if (hamburger && overlay && menu) {
+    hamburger.classList.toggle('active');
+    overlay.classList.toggle('active');
+    menu.classList.toggle('active');
+    
+    // Prevent body scroll when menu is open
+    if (menu.classList.contains('active')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
+}
+
+function closeMobileMenu() {
+  const hamburger = document.getElementById('hamburgerBtn');
+  const overlay = document.getElementById('mobileNavOverlay');
+  const menu = document.getElementById('mobileNavMenu');
+  
+  if (hamburger && overlay && menu) {
+    hamburger.classList.remove('active');
+    overlay.classList.remove('active');
+    menu.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+// Setup mobile menu event listeners
+function setupMobileMenu() {
+  const hamburger = document.getElementById('hamburgerBtn');
+  const overlay = document.getElementById('mobileNavOverlay');
+  const closeBtn = document.getElementById('mobileNavClose');
+  const menu = document.getElementById('mobileNavMenu');
+  
+  // Hamburger button click
+  if (hamburger) {
+    hamburger.addEventListener('click', toggleMobileMenu);
+  }
+  
+  // Overlay click to close
+  if (overlay) {
+    overlay.addEventListener('click', closeMobileMenu);
+  }
+  
+  // Close button click
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeMobileMenu);
+  }
+  
+  // Close menu when clicking on nav links
+  if (menu) {
+    menu.addEventListener('click', function(e) {
+      if (e.target.classList.contains('nav-link')) {
+        closeMobileMenu();
+      }
+    });
+  }
+  
+  // Close menu on window resize if screen becomes large
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+      closeMobileMenu();
+    }
+  });
+  
+  // Handle escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeMobileMenu();
+    }
+  });
+}
+
+// Scroll videos function for both desktop and mobile
+function scrollVideos(direction) {
+  if (direction === 'left') {
+    moveVideoCarousel(-1);
+  } else {
+    moveVideoCarousel(1);
+  }
+}
+
+// Scroll news function
+function scrollNews(direction) {
+  const newsGrid = document.querySelector('.news-cards-grid');
+  if (!newsGrid) return;
+  
+  const cards = newsGrid.querySelectorAll('.news-card');
+  if (cards.length === 0) return;
+  
+  const cardWidth = cards[0].offsetWidth;
+  const gap = 32;
+  const scrollAmount = cardWidth + gap;
+  
+  if (direction === 'left') {
+    newsGrid.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  } else {
+    newsGrid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  }
+}
+
+// Video Carousel Auto-scroll
+let videoIndex = 0;
+let videoTimer;
+
+function getVideoSlidesVisible() {
+  return 3; // Always show 3 videos
+}
+
+function updateVideoCarousel() {
+  const track = document.getElementById('videos-track');
+  if (!track) return;
+  
+  const cards = track.querySelectorAll('.video-card');
+  if (cards.length === 0) return;
+  
+  const visible = getVideoSlidesVisible();
+  const slideWidth = 100 / visible;
+  track.style.transform = `translateX(-${videoIndex * slideWidth}%)`;
+}
+
+function moveVideoCarousel(direction) {
+  const track = document.getElementById('videos-track');
+  if (!track) return;
+  
+  const cards = track.querySelectorAll('.video-card');
+  if (cards.length === 0) return;
+  
+  const visible = getVideoSlidesVisible();
+  const maxIndex = cards.length - visible;
+  
+  if (direction === 1) {
+    videoIndex = videoIndex >= maxIndex ? 0 : videoIndex + visible;
+  } else {
+    videoIndex = videoIndex <= 0 ? maxIndex : videoIndex - visible;
+  }
+  
+  updateVideoCarousel();
+}
+
+function startVideoTimer() {
+  if (videoTimer) clearInterval(videoTimer);
+  videoTimer = setInterval(() => moveVideoCarousel(1), 3000); // 3 seconds
+}
+
+function stopVideoTimer() {
+  if (videoTimer) clearInterval(videoTimer);
+}
+
+// News Carousel
+let newsIndex = 0;
+let newsTimer;
+
+function getSlidesVisible() {
+  return window.innerWidth <= 480 ? 1 : window.innerWidth <= 768 ? 2 : 3;
+}
+
+function updateNewsCarousel() {
+  const track = document.getElementById('newsCarouselTrack');
+  if (!track) return;
+  
+  const visible = getSlidesVisible();
+  const slideWidth = 100 / visible;
+  
+  // Stop animation and apply manual transform
+  track.classList.add('manual-control');
+  track.style.transform = `translateX(-${newsIndex * slideWidth}%)`;
+  
+  // Resume animation after 5 seconds
+  setTimeout(() => {
+    track.classList.remove('manual-control');
+    track.style.transform = '';
+  }, 5000);
+}
+
+function moveNewsCarousel(direction) {
+  const visible = getSlidesVisible();
+  const maxIndex = 5 - visible;
+  
+  if (direction === 1) {
+    newsIndex = newsIndex >= maxIndex ? 0 : newsIndex + 1;
+  } else {
+    newsIndex = newsIndex <= 0 ? maxIndex : newsIndex - 1;
+  }
+  
+  updateNewsCarousel();
+}
+
+function startNewsTimer() {
+  if (newsTimer) clearInterval(newsTimer);
+  newsTimer = setInterval(() => moveNewsCarousel(1), 3000);
+}
+
+function stopNewsTimer() {
+  if (newsTimer) clearInterval(newsTimer);
+}
+
+window.moveNewsCarousel = moveNewsCarousel;
+
+// Global functions for backward compatibility
+window.toggleMobileMenu = toggleMobileMenu;
+window.closeMobileMenu = closeMobileMenu;
+window.scrollVideos = scrollVideos;
+
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', () => {
   loadMainVideo();
@@ -282,10 +492,52 @@ document.addEventListener('DOMContentLoaded', () => {
   loadNewsCarousel();
   loadPriestMessage();
   setupStorageListener();
+  setupMobileMenu();
   
   // Add scroll event listener to update arrow visibility
   const videoStrip = document.getElementById('video-strip');
   if (videoStrip) {
     videoStrip.addEventListener('scroll', updateArrowVisibility);
   }
+  
+  // Add video navigation button listeners
+  const leftBtn = document.querySelector('.video-nav-left');
+  const rightBtn = document.querySelector('.video-nav-right');
+  
+  if (leftBtn) {
+    leftBtn.addEventListener('click', () => scrollVideos('left'));
+  }
+  
+  if (rightBtn) {
+    rightBtn.addEventListener('click', () => scrollVideos('right'));
+  }
+  
+  // Initialize video carousel auto-scroll
+  setTimeout(() => {
+    updateVideoCarousel();
+    startVideoTimer();
+    
+    const videoContainer = document.querySelector('.videos-carousel-container');
+    if (videoContainer) {
+      videoContainer.addEventListener('mouseenter', stopVideoTimer);
+      videoContainer.addEventListener('mouseleave', startVideoTimer);
+    }
+  }, 500);
+  
+  // Initialize news carousel
+  setTimeout(() => {
+    updateNewsCarousel();
+    startNewsTimer();
+    
+    const container = document.querySelector('.news-carousel-container');
+    if (container) {
+      container.addEventListener('mouseenter', stopNewsTimer);
+      container.addEventListener('mouseleave', startNewsTimer);
+    }
+    
+    window.addEventListener('resize', () => {
+      newsIndex = 0;
+      updateNewsCarousel();
+    });
+  }, 500);
 });

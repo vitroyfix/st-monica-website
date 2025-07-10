@@ -11,6 +11,27 @@
 </head>
 <body style="background: linear-gradient(180deg, #fffdf8 0%, #fff3cc 100%); font-family: 'Poppins', sans-serif; margin: 0; padding: 0;">
 
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <div class="mobile-nav-menu" id="mobileNavMenu">
+    <div class="mobile-nav-header">
+      <h3>Menu</h3>
+      <button class="mobile-nav-close" id="mobileNavClose">&times;</button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="#" class="nav-link">Home</a>
+      <a href="#" class="nav-link">About</a>
+      <a href="#schedule-section" class="nav-link">Mass Times</a>
+      <a href="#" class="nav-link">Ministries</a>
+      <a href="#" class="nav-link">Events</a>
+      <a href="#" class="nav-link">Contact</a>
+    </div>
+    <a href="register.html" class="mobile-join-btn">
+      <span class="register-text">REGISTER</span>
+      <span class="members-text">as members</span>
+    </a>
+  </div>
+
   <!-- Top Header -->
   <header id="main-navbar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); transition: all 0.3s ease;">
     <div style="display: flex; align-items: center; gap: 1rem;">
@@ -34,7 +55,11 @@
         <span class="register-text">REGISTER</span>
         <span class="members-text">as members</span>
       </a>
-      <button id="mobile-menu-btn" class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+      <button class="hamburger" id="hamburgerBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </nav>
   </header>
 
@@ -62,49 +87,79 @@
       </div>
       
       <div class="news-carousel-container">
-        <button class="news-nav-btn news-nav-left">‹</button>
-        <button class="news-nav-btn news-nav-right">›</button>
+        <button class="news-nav-btn news-nav-left" onclick="moveNewsCarousel(-1)">‹</button>
+        <button class="news-nav-btn news-nav-right" onclick="moveNewsCarousel(1)">›</button>
         
-        <div class="news-cards-grid">
-          <div class="news-card">
-            <div class="news-image">
-              <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=200&fit=crop" alt="Annual Parish Picnic">
-            </div>
-            <div class="news-content">
-              <h3 class="news-title">Annual Parish Picnic</h3>
-              <div class="news-meta">
-                <span class="news-date">📅 March 15, 2025</span>
-                <span class="news-time">🕐 12:00 PM - 4:00 PM</span>
+        <div class="news-carousel-wrapper">
+          <div class="news-carousel-track" id="newsCarouselTrack">
+            <div class="news-slide">
+              <div class="news-image">
+                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=200&fit=crop" alt="Annual Parish Picnic">
               </div>
-              <p class="news-description">Join us for a day of fellowship, food, and fun activities for the whole family at our annual parish picnic.</p>
-            </div>
-          </div>
-          
-          <div class="news-card">
-            <div class="news-image">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=200&fit=crop" alt="Lenten Prayer Series">
-            </div>
-            <div class="news-content">
-              <h3 class="news-title">Lenten Prayer Series</h3>
-              <div class="news-meta">
-                <span class="news-date">📅 Every Wednesday</span>
-                <span class="news-time">🕐 7:00 PM</span>
+              <div class="news-content">
+                <h3 class="news-title">Annual Parish Picnic</h3>
+                <div class="news-meta">
+                  <span class="news-date">📅 March 15, 2025</span>
+                  <span class="news-time">🕐 12:00 PM - 4:00 PM</span>
+                </div>
+                <p class="news-description">Join us for a day of fellowship, food, and fun activities for the whole family.</p>
               </div>
-              <p class="news-description">Deepen your faith during Lent with our weekly prayer and reflection series focusing on spiritual growth.</p>
             </div>
-          </div>
-          
-          <div class="news-card">
-            <div class="news-image">
-              <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=200&fit=crop" alt="Youth Ministry Retreat">
-            </div>
-            <div class="news-content">
-              <h3 class="news-title">Youth Ministry Retreat</h3>
-              <div class="news-meta">
-                <span class="news-date">📅 April 5-7, 2025</span>
-                <span class="news-time">🕐 Weekend Retreat</span>
+            
+            <div class="news-slide">
+              <div class="news-image">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=200&fit=crop" alt="Lenten Prayer Series">
               </div>
-              <p class="news-description">Young adults are invited to join us for a transformative weekend retreat focused on faith and community.</p>
+              <div class="news-content">
+                <h3 class="news-title">Lenten Prayer Series</h3>
+                <div class="news-meta">
+                  <span class="news-date">📅 Every Wednesday</span>
+                  <span class="news-time">🕐 7:00 PM</span>
+                </div>
+                <p class="news-description">Deepen your faith during Lent with our weekly prayer and reflection series.</p>
+              </div>
+            </div>
+            
+            <div class="news-slide">
+              <div class="news-image">
+                <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=200&fit=crop" alt="Youth Ministry Retreat">
+              </div>
+              <div class="news-content">
+                <h3 class="news-title">Youth Ministry Retreat</h3>
+                <div class="news-meta">
+                  <span class="news-date">📅 April 5-7, 2025</span>
+                  <span class="news-time">🕐 Weekend Retreat</span>
+                </div>
+                <p class="news-description">Young adults are invited to join us for a transformative weekend retreat.</p>
+              </div>
+            </div>
+            
+            <div class="news-slide">
+              <div class="news-image">
+                <img src="https://images.unsplash.com/photo-1438032005730-c779502df39b?w=400&h=200&fit=crop" alt="Community Service Day">
+              </div>
+              <div class="news-content">
+                <h3 class="news-title">Community Service Day</h3>
+                <div class="news-meta">
+                  <span class="news-date">📅 May 10, 2025</span>
+                  <span class="news-time">🕐 9:00 AM - 3:00 PM</span>
+                </div>
+                <p class="news-description">Join us as we serve our local community with various outreach activities.</p>
+              </div>
+            </div>
+            
+            <div class="news-slide">
+              <div class="news-image">
+                <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=200&fit=crop" alt="Easter Celebration">
+              </div>
+              <div class="news-content">
+                <h3 class="news-title">Easter Celebration</h3>
+                <div class="news-meta">
+                  <span class="news-date">📅 March 31, 2025</span>
+                  <span class="news-time">🕐 6:00 AM - 12:00 PM</span>
+                </div>
+                <p class="news-description">Celebrate the resurrection with special Easter services and festivities.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -380,6 +435,7 @@
     </div>
   </footer>
   <script src="home.js"></script>
+  <script src="mobile-menu.js"></script>
   <script src="admin-access.js"></script>
 </body>
 </html>
