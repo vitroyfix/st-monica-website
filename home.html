@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>St. Monica Catholic Church | Home</title>
+  <title>St. Monica LK3C | Home</title>
   <link rel="stylesheet" href="home-style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -240,7 +240,7 @@
   <!-- Pastor Message -->
   <section id="pastor-message" class="section pastor-section">
     <div class="container">
-      <h2 class="pastor-section-title">A Message from Our Pastor</h2>
+      <h2 class="pastor-section-title">A Message from Our Priest</h2>
       <div class="pastor-card">
         <div class="quote-mark">"</div>
         <blockquote class="pastor-message">
@@ -254,7 +254,7 @@
         </blockquote>
         <div class="pastor-signature">
           <p class="pastor-name">Fr. John Mwangi</p>
-          <p class="pastor-title">Pastor</p>
+          <p class="pastor-title">Priesst</p>
         </div>
       </div>
     </div>
@@ -425,7 +425,7 @@
       <!-- Footer Bottom -->
       <div class="footer-bottom">
         <div class="footer-bottom-content">
-          <p class="copyright">© 2025 St. Monica Catholic Church. All rights reserved.</p>
+          <p class="copyright">© 2025 St. Monica LK3C. All rights reserved.</p>
           <div class="footer-bottom-links">
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Service</a>
@@ -437,5 +437,48 @@
   <script src="home.js"></script>
   <script src="mobile-menu.js"></script>
   <script src="admin-access.js"></script>
+  <script>
+    // Load videos from localStorage on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadStoredVideos();
+    });
+
+    function loadStoredVideos() {
+      try {
+        const homeVideos = JSON.parse(localStorage.getItem('homeVideos') || '[]');
+        const videosTrack = document.getElementById('videos-track');
+        
+        if (!videosTrack || homeVideos.length === 0) return;
+        
+        // Clear existing content and add stored videos
+        const existingCards = videosTrack.querySelectorAll('.video-card');
+        
+        homeVideos.forEach((video) => {
+          const videoCard = document.createElement('div');
+          videoCard.className = 'video-card';
+          videoCard.style.cssText = 'flex: 0 0 33.333%; width: 33.333%; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;';
+          
+          videoCard.innerHTML = `
+            <div style="position: relative; width: 100%; height: 200px;">
+              ${video.iframe.replace(/width="[^"]*"/gi, 'width="100%"').replace(/height="[^"]*"/gi, 'height="100%"').replace(/style="[^"]*"/gi, 'style="width:100%;height:100%;border:none;"')}
+            </div>
+            <div class="video-info" style="padding: 1.5rem;">
+              <h4 style="font-size: 1.2rem; color: #582d11; margin-bottom: 0.5rem; font-weight: 600;">${video.title}</h4>
+              <p style="color: #666; line-height: 1.5;">${video.description}</p>
+            </div>
+          `;
+          
+          // Insert at the beginning to show newest videos first
+          if (existingCards.length > 0) {
+            videosTrack.insertBefore(videoCard, existingCards[0]);
+          } else {
+            videosTrack.appendChild(videoCard);
+          }
+        });
+      } catch (error) {
+        console.error('Error loading stored videos:', error);
+      }
+    }
+  </script>
 </body>
 </html>

@@ -176,62 +176,91 @@ function hideVideoUploadForm() {
 
 function uploadVideo() {
   const title = document.getElementById('video-title').value.trim();
-  const url = document.getElementById('video-url').value.trim();
-  const description = document.getElementById('video-description').value.trim();
+  const iframe = document.getElementById('video-iframe').value.trim();
+  const description = document.getElementById('video-description').value.trim() || 'Watch this amazing content from our parish community.';
   
-  if (!title || !url) {
+  if (!title || !iframe) {
     alert('Please fill in all required fields');
     return;
   }
   
+  if (!iframe.includes('<iframe')) {
+    alert('Please enter a valid iframe embed code');
+    return;
+  }
+  
   try {
-    const videoGallery = JSON.parse(localStorage.getItem('videoGallery') || '[]');
-    
-    const newVideo = {
+    // Store video data for home page
+    const homeVideos = JSON.parse(localStorage.getItem('homeVideos') || '[]');
+    const videoData = {
       id: Date.now(),
       title: title,
-      url: url,
+      iframe: iframe,
       description: description,
-      dateAdded: new Date().toISOString(),
-      addedBy: getAdminUsername()
+      dateAdded: new Date().toISOString()
     };
     
-    videoGallery.unshift(newVideo);
+    homeVideos.unshift(videoData);
+    localStorage.setItem('homeVideos', JSON.stringify(homeVideos));
+    
+    // Keep existing videoGallery for admin display (without admin info)
+    const videoGallery = JSON.parse(localStorage.getItem('videoGallery') || '[]');
+    videoGallery.unshift(videoData);
     localStorage.setItem('videoGallery', JSON.stringify(videoGallery));
     
     // Log the action
-    addActivityLog('create', `uploaded video '${title}'`);
+    addActivityLog('create', `added video '${title}'`);
     
     // Refresh the gallery and dashboard
     loadVideoGallery();
     loadDashboard();
     hideVideoUploadForm();
     
-    alert('Video uploaded successfully!');
+    alert('Video added successfully!');
   } catch (error) {
-    console.error('Error uploading video:', error);
-    alert('Error uploading video. Please try again.');
+    console.error('Error adding video:', error);
+    alert('Error adding video. Please try again.');
   }
 }
 
 function loadVideoGallery() {
   try {
     const videoGallery = JSON.parse(localStorage.getItem('videoGallery') || '[]');
+    const videos = JSON.parse(localStorage.getItem('videos') || '[]');
     const container = document.getElementById('video-gallery-grid');
     
     if (!container) return;
     
-    if (videoGallery.length === 0) {
-      container.innerHTML = '<div class="no-videos"><p>No videos uploaded yet. Click "Upload Video" to add your first video.</p></div>';
-      return;
-    }
-    
     container.innerHTML = '';
     
+    // Load from videoGallery first
     videoGallery.forEach(video => {
       const videoCard = createVideoCard(video);
       container.appendChild(videoCard);
     });
+    
+    // Load standalone videos from videos array
+    videos.forEach((iframe, index) => {
+      // Check if this iframe is already in videoGallery
+      const existsInGallery = videoGallery.some(v => v.iframe === iframe);
+      if (!existsInGallery) {
+        const standaloneVideo = {
+          id: 'standalone_' + index,
+          title: `Video ${index + 1}`,
+          iframe: iframe,
+          description: 'Added via quick upload',
+          dateAdded: new Date().toISOString(),
+          addedBy: 'Admin',
+          isStandalone: true
+        };
+        const videoCard = createVideoCard(standaloneVideo);
+        container.appendChild(videoCard);
+      }
+    });
+    
+    if (videoGallery.length === 0 && videos.length === 0) {
+      container.innerHTML = '<div class="no-videos"><p>No videos uploaded yet. Click "Add Video" to add your first video.</p></div>';
+    }
   } catch (error) {
     console.error('Error loading video gallery:', error);
   }
@@ -241,7 +270,7 @@ function createVideoCard(video) {
   const card = document.createElement('div');
   card.className = 'video-card';
   
-  const videoEmbed = createVideoEmbed(video.url);
+  const videoEmbed = video.iframe || createVideoEmbed(video.url || '');
   const formattedDate = new Date(video.dateAdded).toLocaleDateString();
   
   card.innerHTML = `
@@ -278,6 +307,13 @@ function createVideoCard(video) {
 }
 
 function createVideoEmbed(url) {
+  if (!url) return '<div class="video-placeholder">No video available</div>';
+  
+  // Handle iframe embeds first
+  if (url.includes('<iframe')) {
+    return url;
+  }
+  
   // Handle YouTube URLs
   if (url.includes('youtube.com') || url.includes('youtu.be')) {
     let videoId = '';
@@ -300,34 +336,38 @@ function createVideoEmbed(url) {
     return `<video controls><source src="${url}" type="video/mp4">Your browser does not support the video tag.</video>`;
   }
   
-  // Handle iframe embeds
-  if (url.includes('<iframe')) {
-    return url;
-  }
-  
   // Fallback
   return `<div class="video-placeholder">Video: <a href="${url}" target="_blank">${url}</a></div>`;
 }
 
-function editVideo(videoId) {
-  // Simple edit functionality - could be expanded
-  const newTitle = prompt('Enter new title:');
-  if (!newTitle) return;
+function editVideoDescription(videoId) {
+  const newDescription = prompt('Enter new description:');
+  if (!newDescription) return;
   
   try {
+    // Update in videoGallery
     const videoGallery = JSON.parse(localStorage.getItem('videoGallery') || '[]');
     const videoIndex = videoGallery.findIndex(v => v.id === videoId);
     
     if (videoIndex !== -1) {
-      const oldTitle = videoGallery[videoIndex].title;
-      videoGallery[videoIndex].title = newTitle;
+      videoGallery[videoIndex].description = newDescription;
       localStorage.setItem('videoGallery', JSON.stringify(videoGallery));
-      
-      addActivityLog('update', `edited video title from '${oldTitle}' to '${newTitle}'`);
-      loadVideoGallery();
     }
+    
+    // Update in homeVideos
+    const homeVideos = JSON.parse(localStorage.getItem('homeVideos') || '[]');
+    const homeIndex = homeVideos.findIndex(v => v.id === videoId);
+    
+    if (homeIndex !== -1) {
+      homeVideos[homeIndex].description = newDescription;
+      localStorage.setItem('homeVideos', JSON.stringify(homeVideos));
+    }
+    
+    addActivityLog('update', `updated video description`);
+    loadVideoGallery();
+    alert('Description updated successfully!');
   } catch (error) {
-    console.error('Error editing video:', error);
+    console.error('Error editing description:', error);
   }
 }
 
@@ -337,10 +377,29 @@ function deleteVideo(videoId, videoTitle) {
   }
   
   try {
-    const videoGallery = JSON.parse(localStorage.getItem('videoGallery') || '[]');
-    const filteredGallery = videoGallery.filter(v => v.id !== videoId);
-    
-    localStorage.setItem('videoGallery', JSON.stringify(filteredGallery));
+    // Handle standalone videos (from videos array)
+    if (videoId.toString().startsWith('standalone_')) {
+      const index = parseInt(videoId.replace('standalone_', ''));
+      const videos = JSON.parse(localStorage.getItem('videos') || '[]');
+      if (videos[index]) {
+        videos.splice(index, 1);
+        localStorage.setItem('videos', JSON.stringify(videos));
+      }
+    } else {
+      // Handle videoGallery videos
+      const videoGallery = JSON.parse(localStorage.getItem('videoGallery') || '[]');
+      const videoToDelete = videoGallery.find(v => v.id === videoId);
+      const filteredGallery = videoGallery.filter(v => v.id !== videoId);
+      
+      localStorage.setItem('videoGallery', JSON.stringify(filteredGallery));
+      
+      // Also remove from videos array if it exists
+      if (videoToDelete && videoToDelete.iframe) {
+        const videos = JSON.parse(localStorage.getItem('videos') || '[]');
+        const filteredVideos = videos.filter(v => v !== videoToDelete.iframe);
+        localStorage.setItem('videos', JSON.stringify(filteredVideos));
+      }
+    }
     
     addActivityLog('delete', `deleted video '${videoTitle}'`);
     loadVideoGallery();

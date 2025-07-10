@@ -230,6 +230,24 @@ body {
   border-bottom: none;
 }
 
+.admin-link {
+  color: #dc2626;
+  text-decoration: none;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  text-align: center;
+  background: rgba(220, 38, 38, 0.1);
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.admin-link:hover {
+  color: #b91c1c;
+  background: rgba(220, 38, 38, 0.2);
+}
+
 .mobile-join-btn {
   margin-top: 2rem;
   padding: 1rem;

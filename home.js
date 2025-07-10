@@ -46,51 +46,90 @@ function loadPriestMessage() {
   }
 }
 
-// Load recent videos from localStorage
+// Load recent videos from admin videoGallery
 function loadRecentVideos() {
   try {
-    const recentVideos = JSON.parse(localStorage.getItem('recentVideos') || '[]');
-    const videoStrip = document.getElementById('video-strip');
-    const leftArrow = document.querySelector('.scroll-arrow.scroll-left');
-    const rightArrow = document.querySelector('.scroll-arrow.scroll-right');
+    const videoGallery = JSON.parse(localStorage.getItem('videoGallery') || '[]');
+    const videosTrack = document.getElementById('videos-track');
     
-    if (recentVideos.length > 0) {
-      videoStrip.innerHTML = '';
+    if (!videosTrack) return;
+    
+    if (videoGallery.length > 0) {
+      videosTrack.innerHTML = '';
       
-      recentVideos.forEach((video) => {
+      videoGallery.forEach((video) => {
         const videoCard = document.createElement('div');
         videoCard.className = 'video-card';
         videoCard.innerHTML = `
-          <div class="video-thumbnail">
-            ${video.iframe}
+          ${createVideoEmbed(video.url)}
+          <div class="video-info">
+            <h4>${video.title}</h4>
+            <p>${video.description || 'Watch this amazing video from our parish.'}</p>
           </div>
-          <!-- Removed uploader info and date for public view -->
         `;
-        videoStrip.appendChild(videoCard);
+        videosTrack.appendChild(videoCard);
       });
-      
-      // Show/hide scroll arrows based on number of videos
-      if (recentVideos.length > 3) {
-        leftArrow.style.display = 'flex';
-        rightArrow.style.display = 'flex';
-        
-        // Initialize arrow states
-        updateArrowVisibility();
-      } else {
-        leftArrow.style.display = 'none';
-        rightArrow.style.display = 'none';
-      }
     } else {
-      videoStrip.innerHTML = '<p class="no-videos-message">No recent videos available.</p>';
-      leftArrow.style.display = 'none';
-      rightArrow.style.display = 'none';
+      videosTrack.innerHTML = `
+        <div class="video-card">
+          <iframe class="video-embed" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+          <div class="video-info">
+            <h4>Sunday Mass Celebration</h4>
+            <p>Join us for our weekly Sunday Mass with inspiring hymns and fellowship.</p>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe class="video-embed" src="https://www.youtube.com/embed/9bZkp7q19f0" allowfullscreen></iframe>
+          <div class="video-info">
+            <h4>Christmas Eve Service</h4>
+            <p>Experience the joy and wonder of our Christmas Eve candlelight service.</p>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe class="video-embed" src="https://www.youtube.com/embed/kJQP7kiw5Fk" allowfullscreen></iframe>
+          <div class="video-info">
+            <h4>Youth Ministry Gathering</h4>
+            <p>Our young adults come together for faith sharing and community building.</p>
+          </div>
+        </div>
+      `;
     }
   } catch (error) {
     console.error('Error loading recent videos:', error);
-    document.getElementById('video-strip').innerHTML = '<p class="error-message">Error loading videos.</p>';
-    document.querySelector('.scroll-arrow.scroll-left').style.display = 'none';
-    document.querySelector('.scroll-arrow.scroll-right').style.display = 'none';
   }
+}
+
+// Create video embed from URL
+function createVideoEmbed(url) {
+  // Handle YouTube URLs
+  if (url.includes('youtube.com') || url.includes('youtu.be')) {
+    let videoId = '';
+    
+    if (url.includes('youtube.com/watch?v=')) {
+      videoId = url.split('v=')[1].split('&')[0];
+    } else if (url.includes('youtu.be/')) {
+      videoId = url.split('youtu.be/')[1].split('?')[0];
+    } else if (url.includes('youtube.com/embed/')) {
+      videoId = url.split('embed/')[1].split('?')[0];
+    }
+    
+    if (videoId) {
+      return `<iframe class="video-embed" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
+    }
+  }
+  
+  // Handle direct video URLs
+  if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.ogg')) {
+    return `<video class="video-embed" controls><source src="${url}" type="video/mp4"></video>`;
+  }
+  
+  // Handle iframe embeds
+  if (url.includes('<iframe')) {
+    return url;
+  }
+  
+  // Fallback
+  return `<iframe class="video-embed" src="${url}" allowfullscreen></iframe>`;
 }
 
 // Update arrow visibility based on scroll position

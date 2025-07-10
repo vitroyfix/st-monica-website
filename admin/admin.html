@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <title>Admin Dashboard - St. Monica Catholic Church</title>
+  <title>Admin Dashboard - St. Monica LK3C</title>
   <link rel="stylesheet" href="admin.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script>
@@ -210,22 +210,22 @@
               <line x1="12" y1="5" x2="12" y2="19"/>
               <line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
-            Upload Video
+            Add Video
           </button>
         </header>
 
         <!-- Video Upload Form (Hidden by default) -->
         <div id="video-upload-form" class="video-upload-form" style="display: none;">
           <div class="form-card">
-            <h3>Upload New Video</h3>
+            <h3>Add New Video</h3>
             <form id="video-form">
               <div class="form-group">
                 <label for="video-title">Video Title</label>
                 <input type="text" id="video-title" placeholder="Enter video title" required>
               </div>
               <div class="form-group">
-                <label for="video-url">Video URL</label>
-                <input type="url" id="video-url" placeholder="YouTube embed URL or MP4 link" required>
+                <label for="video-iframe">Video Embed Code (iframe)</label>
+                <textarea id="video-iframe" placeholder="Paste your iframe embed code here..." rows="4" required style="font-family: monospace; font-size: 14px;"></textarea>
               </div>
               <div class="form-group">
                 <label for="video-description">Description (Optional)</label>
@@ -233,7 +233,7 @@
               </div>
               <div class="form-actions">
                 <button type="button" class="cancel-btn" onclick="hideVideoUploadForm()">Cancel</button>
-                <button type="submit" class="submit-btn">Upload Video</button>
+                <button type="submit" class="submit-btn">Add Video</button>
               </div>
             </form>
           </div>
@@ -243,10 +243,13 @@
         <div id="video-gallery-grid" class="video-gallery-grid">
           <!-- Videos will be dynamically loaded here -->
         </div>
+
+
       </div>
     </main>
   </div>
 
   <script src="admin-manager.js"></script>
+
 </body>
 </html>
